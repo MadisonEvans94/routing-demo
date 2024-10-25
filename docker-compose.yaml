@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  routing_service:
+    build:
+      context: ./routing_service
+    ports:
+      - "8080:8080"  # Exposing routing service on port 8080
+    depends_on:
+      - model_weak
+      - model_strong
+    environment:
+      - WEAK_ENDPOINT=http://model_weak:8080/infer
+      - STRONG_ENDPOINT=http://model_strong:8080/infer
+    networks:
+      - inference_net
+
+  model_weak:
+    build:
+      context: ./inference_service/model_weak
+    ports:
+      - "8001:8080"  # Expose weak model on port 8001
+    networks:
+      - inference_net
+
+  model_strong:
+    build:
+      context: ./inference_service/model_strong
+    ports:
+      - "8002:8080"  # Expose strong model on port 8002
+    networks:
+      - inference_net
+
+networks:
+  inference_net:
+    driver: bridge
