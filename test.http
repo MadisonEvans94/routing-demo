@@ -1,0 +1,15 @@
+### Test the /infer endpoint (strong)
+POST http://localhost:8080/infer
+Content-Type: application/json
+
+{
+  "query": "Hello, world!"
+}
+
+### Test the /infer endpoint (weak)
+POST http://localhost:8080/infer
+Content-Type: application/json
+
+{
+  "query": "Hi!"
+}

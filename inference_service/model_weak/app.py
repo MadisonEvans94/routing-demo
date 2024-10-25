@@ -10,7 +10,7 @@ class QueryRequest(BaseModel):
 
 @app.post("/infer")
 async def infer(request: QueryRequest):
-    return {"response": request.query}
+    return {"response": f"{request.query} from weak model"}
 
 if __name__ == "__main__":
     import uvicorn
